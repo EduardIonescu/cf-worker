@@ -34,7 +34,7 @@ export async function onRequestPost({ request }: { request: any }) {
 	})
 		.then(() => (emailStatus = true))
 		.catch((err) => (emailStatus = err.message));
-
+	const { message2 } = await res.json();
 	if (res.ok) {
 		return new Response(JSON.stringify({ message: "success" }), {
 			headers: {
@@ -43,7 +43,7 @@ export async function onRequestPost({ request }: { request: any }) {
 		});
 	} else {
 		console.log(emailStatus);
-		return new Response(JSON.stringify({ message: res.message }), {
+		return new Response(JSON.stringify({ message: message2 }), {
 			headers: {
 				"Content-Type": "application/json;charset=utf-8",
 			},
