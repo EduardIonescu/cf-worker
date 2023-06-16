@@ -14,7 +14,7 @@ import "node:querystring";
 import "node:fs";
 import "node:path";
 
-import SibApiV3Sdk from "@sendinblue/client";
+const SibApiV3Sdk = require("sib-api-v3-typescript");
 
 export async function onRequestPost({ request }) {
 	const contentType = request.headers.get("content-type");
