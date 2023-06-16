@@ -14,7 +14,7 @@ export async function onRequestPost({ request }: { request: any }) {
 		headers: {
 			accept: "application/json",
 			"api-key":
-				"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",
+				"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",
 			"content-type": "application/json",
 		},
 
