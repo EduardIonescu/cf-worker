@@ -1,21 +1,3 @@
-import "node:assert";
-import "node:crypto";
-import "node:util";
-import "node:events";
-import "node:http";
-import "node:https";
-import "node:buffer";
-import "node:tls";
-import "node:net";
-import "node:url";
-import "node:stream";
-import "node:zlib";
-import "node:querystring";
-import "node:fs";
-import "node:path";
-
-import SibApiV3Sdk from "sib-api-v3-typescript";
-
 export async function onRequestPost({ request }: { request: any }) {
 	const contentType = request.headers.get("content-type");
 	if (!contentType.includes("application/json")) {
@@ -25,35 +7,35 @@ export async function onRequestPost({ request }: { request: any }) {
 	const data = await request.json();
 	const { lastName, firstName, email, phone, subject, message } = data;
 
-	const apiInstance = new SibApiV3Sdk.TransactionalEmailsApi();
-	apiInstance.setApiKey(
-		SibApiV3Sdk.TransactionalEmailsApiApiKeys.apiKey,
-		process.env.SENDINBLUE_API_KEY || ""
-	);
+	let emailStatus = false;
 
-	let emailStatus;
-	const sendSmtpEmail = new SibApiV3Sdk.SendSmtpEmail();
-	sendSmtpEmail.htmlContent = `<p>
-	Last name: ${lastName} <br/>
-	First name: ${firstName}<br/>
-	Email: ${email}<br/>
-	Phone: ${phone || "None"}<br/>
-	Message: ${message}
-	</p>`;
-	sendSmtpEmail.subject = subject || "No subject";
-	sendSmtpEmail.sender = { email: "noreply@deepsign.de" };
-	sendSmtpEmail.to = [{ email: "eduardionescu23@gmail.com" }];
+	const res = await fetch("https://api.brevo.com/v3/smtp/email", {
+		method: "POST",
+		headers: {
+			accept: "application/json",
+			"api-key":
+				"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",
+			"content-type": "application/json",
+		},
 
-	apiInstance
-		.sendTransacEmail(sendSmtpEmail)
-		.then(() => {
-			emailStatus = true;
-		})
-		.catch((err: any) => {
-			emailStatus = err;
-		});
+		body: JSON.stringify({
+			sender: {
+				email: "noreply@deepsign.de",
+			},
+			to: [
+				{
+					email: "eduardionescu23@gmail.com",
+				},
+			],
+			subject: "Hello world",
+			htmlContent:
+				"<html><head></head><body><p>Hello,</p>This is my first transactional email sent from Brevo.</p></body></html>",
+		}),
+	})
+		.then(() => (emailStatus = true))
+		.catch((err) => (emailStatus = err.message));
 
-	if (emailStatus === true) {
+	if (res.success) {
 		return new Response(JSON.stringify({ message: "success" }), {
 			headers: {
 				"Content-Type": "application/json;charset=utf-8",
