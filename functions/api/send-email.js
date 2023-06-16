@@ -1,3 +1,14 @@
+import "node:assert";
+import "node:crypto";
+import "node:util";
+import "node:events";
+import "node:http";
+import "node:https";
+import "node:buffer";
+import "node:tls";
+import "node:net";
+import "node:url";
+
 const SibApiV3Sdk = require("@sendinblue/client");
 
 export async function onRequestPost({ request }) {
