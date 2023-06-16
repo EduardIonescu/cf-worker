@@ -7,8 +7,6 @@ export async function onRequestPost({ request }: { request: any }) {
 	const data = await request.json();
 	const { lastName, firstName, email, phone, subject, message } = data;
 
-	let emailStatus = false;
-
 	const res = await fetch("https://api.brevo.com/v3/smtp/email", {
 		method: "POST",
 		headers: {
@@ -26,17 +24,17 @@ export async function onRequestPost({ request }: { request: any }) {
 			subject: "Login Email confirmation",
 		}),
 	})
-		.then(() => (emailStatus = true))
-		.catch((err) => (emailStatus = err.message));
-	if (res.ok) {
+		.then((r) => r.json())
+		.catch((err) => console.log(err));
+
+	if (res.messageId) {
 		return new Response(JSON.stringify({ message: "success" }), {
 			headers: {
 				"Content-Type": "application/json;charset=utf-8",
 			},
 		});
 	} else {
-		console.log(emailStatus);
-		return new Response(JSON.stringify({ message: emailStatus }), {
+		return new Response(JSON.stringify({ message: res.message }), {
 			headers: {
 				"Content-Type": "application/json;charset=utf-8",
 			},
