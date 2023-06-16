@@ -14,7 +14,7 @@ import "node:querystring";
 import "node:fs";
 import "node:path";
 
-const SibApiV3Sdk = require("sib-api-v3-typescript");
+import SibApiV3Sdk from "sib-api-v3-typescript";
 
 export async function onRequestPost({ request }: { request: any }) {
 	const contentType = request.headers.get("content-type");
@@ -28,7 +28,7 @@ export async function onRequestPost({ request }: { request: any }) {
 	const apiInstance = new SibApiV3Sdk.TransactionalEmailsApi();
 	apiInstance.setApiKey(
 		SibApiV3Sdk.TransactionalEmailsApiApiKeys.apiKey,
-		process.env.SENDINBLUE_API_KEY
+		process.env.SENDINBLUE_API_KEY || ""
 	);
 
 	let emailStatus;
