@@ -11,8 +11,7 @@ export async function onRequestPost({ request }: { request: any }) {
 		method: "POST",
 		headers: {
 			accept: "application/json",
-			"api-key":
-				"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",
+			"api-key": process.env.SENDINBLUE_API_KEY || "",
 			"content-type": "application/json",
 		},
 
