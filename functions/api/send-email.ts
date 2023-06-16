@@ -16,7 +16,7 @@ import "node:path";
 
 const SibApiV3Sdk = require("sib-api-v3-typescript");
 
-export async function onRequestPost({ request }) {
+export async function onRequestPost({ request }: { request: any }) {
 	const contentType = request.headers.get("content-type");
 	if (!contentType.includes("application/json")) {
 		return new Response("Illegal Content Type", { status: 422 });
@@ -47,13 +47,13 @@ export async function onRequestPost({ request }) {
 	apiInstance
 		.sendTransacEmail(sendSmtpEmail)
 		.then(() => {
-			emailSent = true;
+			emailStatus = true;
 		})
-		.catch((err) => {
+		.catch((err: any) => {
 			emailStatus = err;
 		});
 
-	if (emailSent === true) {
+	if (emailStatus === true) {
 		return new Response(JSON.stringify({ message: "success" }), {
 			headers: {
 				"Content-Type": "application/json;charset=utf-8",
