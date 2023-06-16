@@ -2,7 +2,7 @@ import posts from "./data";
 
 export function onRequestGet(context) {
 	const id = context.params.id;
-
+	console.log(id, "asd");
 	if (!id) {
 		return new Response("Not Found", { status: 404 });
 	}

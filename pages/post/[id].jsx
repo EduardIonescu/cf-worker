@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
 export default function Post() {
+	console.log("asd");
 	const [post, setPost] = useState({});
 
 	const router = useRouter();

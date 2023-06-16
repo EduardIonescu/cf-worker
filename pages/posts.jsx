@@ -22,7 +22,7 @@ export default function Posts() {
 				posts.map((post) => (
 					<div key={post.id}>
 						<h2 className="text-2xl">
-							<Link href={`/posts/${post.id}`}>{post.title}</Link>
+							<Link href={`/post/${post.id}`}>{post.title}</Link>
 						</h2>
 					</div>
 				))}
