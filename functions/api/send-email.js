@@ -8,6 +8,11 @@ import "node:buffer";
 import "node:tls";
 import "node:net";
 import "node:url";
+import "node:stream";
+import "node:zlib";
+import "node:querystring";
+import "node:fs";
+import "node:path";
 
 const SibApiV3Sdk = require("@sendinblue/client");
 
