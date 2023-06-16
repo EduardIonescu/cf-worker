@@ -34,7 +34,8 @@ export async function onRequestPost({ request }: { request: any }) {
 	})
 		.then(() => (emailStatus = true))
 		.catch((err) => (emailStatus = err.message));
-
+	const asd = await res.json();
+	return new Response(JSON.stringify({ message: JSON.stringify(asd) }));
 	if (res.success) {
 		return new Response(JSON.stringify({ message: "success" }), {
 			headers: {
