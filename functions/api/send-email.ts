@@ -19,17 +19,11 @@ export async function onRequestPost({ request }: { request: any }) {
 		},
 
 		body: JSON.stringify({
-			sender: {
-				email: "noreply@deepsign.de",
-			},
-			to: [
-				{
-					email: "eduardionescu23@gmail.com",
-				},
-			],
-			subject: "Hello world",
+			sender: { email: "noreply@deepsign.de", name: "Mary from MyShop" },
+			to: [{ email: "eduardionescu23@gmail.com", name: "Jimmy" }],
 			htmlContent:
-				"<html><head></head><body><p>Hello,</p>This is my first transactional email sent from Brevo.</p></body></html>",
+				"<!DOCTYPE html> <html> <body> <h1>Confirm you email</h1> <p>Please confirm your email address by clicking on the link below</p> </body> </html>",
+			subject: "Login Email confirmation",
 		}),
 	})
 		.then(() => (emailStatus = true))
